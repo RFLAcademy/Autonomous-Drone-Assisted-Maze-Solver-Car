@@ -1,0 +1,53 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>ESP32 RC Car</title>
+      <style>
+        body { text-align: center; font-family: Arial; }
+        button { width: 100px; height: 50px; font-size: 20px; margin: 10px; }
+      </style>
+      <script>
+        document.addEventListener("keydown", function(event) {
+          if (event.repeat) return; // Prevent holding key from flooding requests
+          switch(event.code) {
+            case "ArrowUp":
+              fetch('/forward');
+              break;
+            case "ArrowDown":
+              fetch('/backward');
+              break;
+            case "ArrowLeft":
+              fetch('/left');
+              break;
+            case "ArrowRight":
+              fetch('/right');
+              break;
+            case "Space":
+              fetch('/stop');
+              break;
+          }
+        });
+
+        document.addEventListener("keyup", function(event) {
+          // Stop when key is released
+          switch(event.code) {
+            case "ArrowUp":
+            case "ArrowDown":
+            case "ArrowLeft":
+            case "ArrowRight":
+              fetch('/stop');
+              break;
+          }
+        });
+      </script>
+    </head>
+    <body>
+      <h1>ESP32 RC Car</h1>
+      <p>Use Arrow Keys to Drive, Space to Brake</p>
+      <button onclick="location.href='/forward'">Forward</button><br>
+      <button onclick="location.href='/left'">Left</button>
+      <button onclick="location.href='/stop'">Stop</button>
+      <button onclick="location.href='/right'">Right</button><br>
+      <button onclick="location.href='/backward'">Backward</button>
+    </body>
+    </html>
